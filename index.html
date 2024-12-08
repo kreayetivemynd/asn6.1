@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <form>
+    <!--Added a form ID-->
+    <form id="userForm">
         <fieldset>
             <legend>Personal Data</legend>
             <label for='prefix'><strong>Prefix
@@ -113,6 +114,7 @@
             <label for='bio'><strong>Short Bio</strong></label><br>
             <textarea id="bio" name="bio" rows="4" cols="50"></textarea>
         </fieldset>
+
         <fieldset>
             <legend>Login Preferences</legend>
             <label for='username'><strong>Username</strong></label><br>
@@ -124,6 +126,59 @@
         </fieldset>
         <input type='submit' value='Submit'>
         <input type='reset' value='Reset'>
+
+        <!--Added a button-->
+        <button type="button" id="displayButton">Display Form Data</button> 
+
     </form>
+
+    <!--Added the output section-->
+    <div id="output" style="margin-top: 20px; font-size: 18px; border: 1px solid lightgray; padding: 10px;"> <!-- Added -->
+        <h3>Submitted Data:</h3>
+        <p id="result">Click the button to see form data here.</p> <!-- Added -->
+    </div>
+
+    <!--Added the JS-->
+    <script>
+
+        document.getElementById("displayButton").addEventListener("click", function () { 
+            const prefix = document.querySelector('input[name="prefix"]:checked')?.value || "N/A";
+            const fname = document.getElementById("fname").value || "N/A";
+            const lname = document.getElementById("lname").value || "N/A";
+            const email = document.getElementById("email").value || "N/A";
+            
+            const vehicle1 = document.getElementById("vehicle").checked ? "Bike" : "";
+            const vehicle2 = document.getElementById("vehicle2").checked ? "Car" : "";
+            const vehicle3 = document.getElementById("vehicle3").checked ? "Boat" : "";
+            const vehicle4 = document.getElementById("vehicle4").checked ? "Bus" : "";
+
+            const birthday = document.getElementById("birthday").value || "N/A";
+            const state = document.getElementById("state").value || "N/A";
+            const age = document.getElementById("rangeInput").value;
+            const bio = document.getElementById("bio").value || "N/A";
+            const username = document.getElementById("username").value || "N/A";
+            const color = document.getElementById("color").value;
+
+            const result = `
+                <strong>Prefix:</strong> ${prefix} <br>
+                <strong>First Name:</strong> ${fname} <br>
+                <strong>Last Name:</strong> ${lname} <br>
+                <strong>Email:</strong> ${email} <br>
+                <strong>Vehicles:</strong> ${[vehicle1, vehicle2, vehicle3, vehicle4].filter(Boolean).join(", ") || "None"} <br>
+                <strong>State Born:</strong> ${state} <br>
+                <strong>Birthday:</strong> ${birthday} <br>
+                <strong>Age:</strong> ${age} <br>
+                <strong>Bio:</strong> ${bio} <br>
+                <strong>Username:</strong> ${username} <br>
+                <strong>Favorite Color:</strong> <span style="color: ${color}">${color}</span>
+            `;
+
+            document.getElementById("result").innerHTML = result; // Added
+        });
+
+        function updateOutput(value) { // Existing function
+            document.getElementById('rangeValue').textContent = value;
+        }
+    </script>
 </body>
 </html>
